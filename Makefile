@@ -1,11 +1,11 @@
-NAME = pipex
+NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC = $(SRC_DIR)philo.c \
+SRC = $(SRC_DIR)philo.c 
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -13,7 +13,7 @@ INC = -I./include
 
 HEADERS = include/philo.h
 
-all: $(NAME)
+all:$(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $^  -o $@
@@ -29,9 +29,11 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-rundebug:
+run: all
+	./$(NAME) 4 800 200 200 5
 
-:Q
+rundebug: all
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./$(NAME)  4 800 200 200 5
 
 re: fclean all
 
