@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC = $(SRC_DIR)philo.c 
+SRC = $(SRC_DIR)philo.c \
+	$(SRC_DIR)debug.c \
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -30,7 +31,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 run: all
-	./$(NAME) 4 800 200 200 5
+	./$(NAME) 2 4 20 20 5
 
 rundebug: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./$(NAME)  4 800 200 200 5

@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 01:17:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/04/25 01:32:50 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:10:20 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,18 @@
 # include <unistd.h>
 # include <string.h>
 # include <errno.h>
-typedef struct s_philo
+
+
+typedef struct s_simulation
 {
 	int		nb_philo;
 	int		time_to_die;
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		nb_eat;
-}	t_philo;
+}	t_simu;
 
+void debug_philo_state(t_simu *philo);
 //fonction a ajouert
 // void	ft_error(char *msg);
 // void	ft_free(char **tab);
