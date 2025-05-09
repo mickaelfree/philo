@@ -20,6 +20,13 @@
 # include <time.h>
 # include <sys/time.h>
 
+enum PhiloState {
+	THINKING,
+	EATING,
+	SLEEPING,
+	FORK_TAKEN,
+	DEAD
+};
 
 enum Action {
 	EAT,
@@ -36,6 +43,7 @@ typedef struct s_philo
 	int				right_fork;
 	int				meals_eaten;
 	long			last_meal;
+        int 			state;
 	pthread_t		thread;
 	pthread_mutex_t	meal_mutex;
 	struct s_simu	*simu;
@@ -55,13 +63,13 @@ typedef struct s_simu
 	t_philo			*philos;
 }	t_simu;
 
-// Fonctions utilitaires
+/* Fonctions utilitaires */
 long	get_time_ms(void);
 void	ft_sleep(long wait_time);
 void	cleanup(t_simu *simu);
 void	parse(t_simu *simu, char **argv);
 
-//intitialisation
+/*intitialisation */
 void	init_mutexes(t_simu *simu);
 void	init_philos(t_simu *simu);
 
@@ -71,8 +79,8 @@ int	start_simulation(t_simu *simu);
 
 void	print_action(t_simu *p, int philo_id, enum Action action);
 
-// Fonctions de debug
-void	debug_philo_state(t_simu *p);
+/* Fonctions de debug */
+ void	debug_philo_state(t_simu *p);
 void debug_simulation_details(t_simu *s);
 
 #endif
