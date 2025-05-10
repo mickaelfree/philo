@@ -21,13 +21,13 @@
 # include <sys/time.h>
 
 
-enum Action {
+enum e_action {
 	EAT,
 	SLEEP,
 	TAKINK_FORK,
 	THINK,
 	DIE
-};
+} e_action;
 
 typedef struct s_philo
 {

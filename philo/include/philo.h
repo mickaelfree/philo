@@ -13,14 +13,15 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
 # include <pthread.h>
-# include <time.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <sys/time.h>
+# include <time.h>
+# include <unistd.h>
 
-enum PhiloState {
+enum				e_philoState
+{
 	THINKING,
 	EATING,
 	SLEEPING,
@@ -28,7 +29,8 @@ enum PhiloState {
 	DEAD
 };
 
-enum Action {
+enum				e_action
+{
 	EAT,
 	SLEEP,
 	TAKINK_FORK,
@@ -43,11 +45,11 @@ typedef struct s_philo
 	int				right_fork;
 	int				meals_eaten;
 	long			last_meal;
-        int 			state;
+	int				state;
 	pthread_t		thread;
 	pthread_mutex_t	meal_mutex;
 	struct s_simu	*simu;
-}	t_philo;
+}					t_philo;
 
 typedef struct s_simu
 {
@@ -61,26 +63,26 @@ typedef struct s_simu
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
-}	t_simu;
+}					t_simu;
 
 /* Fonctions utilitaires */
-long	get_time_ms(void);
-void	ft_sleep(long wait_time);
-void	cleanup(t_simu *simu);
-void	parse(t_simu *simu, char **argv);
+long				get_time_ms(void);
+void				ft_sleep(long wait_time);
+void				cleanup(t_simu *simu);
+void				parse(t_simu *simu, char **argv);
 
 /*intitialisation */
-void	init_mutexes(t_simu *simu);
-void	init_philos(t_simu *simu);
+void				init_mutexes(t_simu *simu);
+void				init_philos(t_simu *simu);
 
 /*maint simulation*/
 
-int	start_simulation(t_simu *simu);
+int					start_simulation(t_simu *simu);
 
-void	print_action(t_simu *p, int philo_id, enum Action action);
+void				print_action(t_simu *p, int philo_id, enum e_action action);
 
 /* Fonctions de debug */
- void	debug_philo_state(t_simu *p);
-void debug_simulation_details(t_simu *s);
+void				debug_philo_state(t_simu *p);
+void				debug_simulation_details(t_simu *s);
 
 #endif

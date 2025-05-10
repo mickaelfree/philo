@@ -36,29 +36,23 @@ void	print_action(t_simu *p, int philo_id, enum Action action)
 	pthread_mutex_unlock(&p->print_mutex);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_simu	simu;
-	
+
 	if (argc != 5 && argc != 6)
 	{
-		printf("Usage: %s number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]\n", argv[0]);
+		printf("Usage: %s \n", argv[0]);
 		return (1);
 	}
-	
 	parse(&simu, argv);
-	
-	// Vérifier les arguments
-	if (simu.nb_philo <= 0 || simu.time_to_die <= 0 || 
-		simu.time_to_eat <= 0 || simu.time_to_sleep <= 0 || 
+	if (simu.nb_philo <= 0 || simu.time_to_die <= 0 ||
+		simu.time_to_eat <= 0 || simu.time_to_sleep <= 0 ||
 		(argc == 6 && simu.nb_eat <= 0))
 	{
 		printf("Error: Invalid arguments\n");
 		return (1);
 	}
-	
-	// Allouer la mémoire pour les philosophes et les fourchettes
 	simu.philos = malloc(sizeof(t_philo) * simu.nb_philo);
 	simu.forks = malloc(sizeof(pthread_mutex_t) * simu.nb_philo);
 	if (!simu.philos || !simu.forks)
@@ -66,10 +60,8 @@ int	main(int argc, char **argv)
 		printf("Error: Memory allocation failed\n");
 		return (1);
 	}
-	
 	init_mutexes(&simu);
 	init_philos(&simu);
-	
 	if (start_simulation(&simu) != 0)
 	{
 		printf("Error: Failed to start simulation\n");
@@ -78,10 +70,8 @@ int	main(int argc, char **argv)
 		free(simu.forks);
 		return (1);
 	}
-	
 	cleanup(&simu);
 	free(simu.philos);
 	free(simu.forks);
-	
 	return (0);
 }
