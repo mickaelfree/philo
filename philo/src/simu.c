@@ -58,15 +58,12 @@ void	philo_eat(t_philo *philo, t_simu *simu)
 	print_action(simu, philo->id, TAKINK_FORK);
 	pthread_mutex_lock(&simu->forks[philo->right_fork]);
 	print_action(simu, philo->id, TAKINK_FORK);
-	
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal = get_time_ms();
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
-	
 	print_action(simu, philo->id, EAT);
 	ft_sleep(simu->time_to_eat);
-	
 	pthread_mutex_unlock(&simu->forks[philo->left_fork]);
 	pthread_mutex_unlock(&simu->forks[philo->right_fork]);
 }
@@ -80,7 +77,6 @@ void	*philo_routine(void *arg)
 	simu = philo->simu;
 	if (philo->id % 2 == 0)
 		ft_sleep(10);
-	
 	while (!simu->simulation_end)
 	{
 		philo_eat(philo, simu);
