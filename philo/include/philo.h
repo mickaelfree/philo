@@ -45,7 +45,6 @@ typedef struct s_philo
 	int				right_fork;
 	int				meals_eaten;
 	long			last_meal;
-	int				state;
 	pthread_t		thread;
 	pthread_mutex_t	meal_mutex;
 	struct s_simu	*simu;

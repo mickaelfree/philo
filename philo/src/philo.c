@@ -12,7 +12,7 @@
 
 #include "../include/philo.h"
 
-void	print_action(t_simu *p, int philo_id, enum Action action)
+void	print_action(t_simu *p, int philo_id, enum e_action action)
 {
 	long	current_time;
 

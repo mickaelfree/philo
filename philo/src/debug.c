@@ -27,34 +27,3 @@ void	debug_philo_state(t_simu *info_simulation)
 			info_simulation->time_to_sleep,
 			info_simulation->nb_eat);
 }
-static char	*get_philo_state_str(int state)
-{
-	if (state == THINKING)
-		return ("🤔");
-	else if (state == EATING)
-		return ("🍝");
-	else if (state == SLEEPING)
-		return ("😴");
-	else if (state == FORK_TAKEN)
-		return ("🍴");
-	else if (state == DEAD)
-		return ("💀");
-	return ("❓");
-}
-
-void	debug_simulation_details(t_simu *s)
-{
-	int	i;
-
-	printf("\n🔍 SIMU: %dp %dms🍽️ %dms😴 %dms💀 %d🍗\n",
-			s->nb_philo,
-			s->time_to_eat,
-			s->time_to_sleep,
-			s->time_to_die,
-			s->nb_eat);
-	for (i = 0; i < s->nb_philo; i++)
-		printf("P%d:%s %d🍗 %ldms⏱️ | ", i + 1,
-				get_philo_state_str(s->philos[i].state),
-				s->philos[i].meals_eaten, s->philos[i].last_meal);
-	printf("\n");
-}

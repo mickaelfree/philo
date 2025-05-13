@@ -52,6 +52,25 @@ void	*monitor_routine(void *arg)
 	return (NULL);
 }
 
+void	philo_eat(t_philo *philo, t_simu *simu)
+{
+	pthread_mutex_lock(&simu->forks[philo->left_fork]);
+	print_action(simu, philo->id, TAKINK_FORK);
+	pthread_mutex_lock(&simu->forks[philo->right_fork]);
+	print_action(simu, philo->id, TAKINK_FORK);
+	
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal = get_time_ms();
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->meal_mutex);
+	
+	print_action(simu, philo->id, EAT);
+	ft_sleep(simu->time_to_eat);
+	
+	pthread_mutex_unlock(&simu->forks[philo->left_fork]);
+	pthread_mutex_unlock(&simu->forks[philo->right_fork]);
+}
+
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
@@ -59,22 +78,12 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	simu = philo->simu;
-	if (philo->id >> 1 == 0)
+	if (philo->id % 2 == 0)
 		ft_sleep(10);
+	
 	while (!simu->simulation_end)
 	{
-		pthread_mutex_lock(&simu->forks[philo->left_fork]);
-		print_action(simu, philo->id, TAKINK_FORK);
-		pthread_mutex_lock(&simu->forks[philo->right_fork]);
-		print_action(simu, philo->id, TAKINK_FORK);
-		pthread_mutex_lock(&philo->meal_mutex);
-		philo->last_meal = get_time_ms();
-		philo->meals_eaten++;
-		pthread_mutex_unlock(&philo->meal_mutex);
-		print_action(simu, philo->id, EAT);
-		ft_sleep(simu->time_to_eat);
-		pthread_mutex_unlock(&simu->forks[philo->left_fork]);
-		pthread_mutex_unlock(&simu->forks[philo->right_fork]);
+		philo_eat(philo, simu);
 		print_action(simu, philo->id, SLEEP);
 		ft_sleep(simu->time_to_sleep);
 		print_action(simu, philo->id, THINK);
