@@ -6,7 +6,7 @@
 /*   By: mickmart <mickmart@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 01:17:33 by mickmart          #+#    #+#             */
-/*   Updated: 2025/05/09 14:13:37 by mickmart         ###   ########.fr       */
+/*   Updated: 2025/05/13 23:46:15 by mickmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-
-enum				e_philoState
-{
-	THINKING,
-	EATING,
-	SLEEPING,
-	FORK_TAKEN,
-	DEAD
-};
 
 enum				e_action
 {
@@ -74,10 +65,11 @@ void				parse(t_simu *simu, char **argv);
 void				init_mutexes(t_simu *simu);
 void				init_philos(t_simu *simu);
 
+/*monitor */
+void				*monitor_routine(void *arg);
+
 /*maint simulation*/
-
 int					start_simulation(t_simu *simu);
-
 void				print_action(t_simu *p, int philo_id, enum e_action action);
 
 /* Fonctions de debug */

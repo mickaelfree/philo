@@ -9,6 +9,7 @@ SRC = $(SRC_DIR)philo.c \
 	$(SRC_DIR)debug.c \
 	$(SRC_DIR)init.c \
 	$(SRC_DIR)simu.c \
+	$(SRC_DIR)monitoring.c \
 	$(SRC_DIR)utils.c \
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
