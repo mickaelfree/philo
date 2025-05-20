@@ -35,7 +35,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 run: all
-	./$(NAME) 4 200 200 200 5
+	./$(NAME)  4 410 200 200
 
 rundebug: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./$(NAME)  4 800 200 200 5

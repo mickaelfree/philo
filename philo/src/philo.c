@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 		printf("Usage: %s \n", argv[0]);
 		return (1);
 	}
+
 	parse(&simu, argv);
 	if (simu.nb_philo <= 0 || simu.time_to_die <= 0 ||
 		simu.time_to_eat <= 0 || simu.time_to_sleep <= 0 ||
