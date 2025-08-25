@@ -55,11 +55,12 @@ static int	check_all_philosophers_eaten_enough(t_simu *simu)
 	return (1);
 }
 
-static void	end_simulation(t_simu *simu)
+static void	*end_simulation(t_simu *simu)
 {
 	pthread_mutex_lock(&simu->print_mutex);
 	simu->simulation_end = 1;
 	pthread_mutex_unlock(&simu->print_mutex);
+	return (NULL);
 }
 
 void	*monitor_routine(void *arg)
@@ -68,23 +69,24 @@ void	*monitor_routine(void *arg)
 	int		i;
 
 	simu = (t_simu *)arg;
-	while (!simu->simulation_end)
+	while (1)
 	{
 		i = 0;
 		while (i < simu->nb_philo)
 		{
 			if (check_philosopher_death(simu, i))
-			{
-				end_simulation(simu);
-				return (NULL);
-			}
+				return (end_simulation(simu));
 			i++;
 		}
 		if (check_all_philosophers_eaten_enough(simu))
+			return (end_simulation(simu));
+		pthread_mutex_lock(&simu->print_mutex);
+		if (simu->simulation_end)
 		{
-			end_simulation(simu);
-			return (NULL);
+			pthread_mutex_unlock(&simu->print_mutex);
+			break ;
 		}
+		pthread_mutex_unlock(&simu->print_mutex);
 		usleep(500);
 	}
 	return (NULL);

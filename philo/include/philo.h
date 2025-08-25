@@ -24,7 +24,7 @@ enum				e_action
 {
 	EAT,
 	SLEEP,
-	TAKINK_FORK,
+	TAKING_FORK,
 	THINK,
 	DIE
 };
