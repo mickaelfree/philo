@@ -72,8 +72,4 @@ void				*monitor_routine(void *arg);
 int					start_simulation(t_simu *simu);
 void				print_action(t_simu *p, int philo_id, enum e_action action);
 
-/* Fonctions de debug */
-void				debug_philo_state(t_simu *p);
-void				debug_simulation_details(t_simu *s);
-
 #endif
