@@ -26,10 +26,16 @@ static int	validate_args(t_simu *simu, int argc)
 static int	allocate_memory(t_simu *simu)
 {
 	simu->philos = malloc(sizeof(t_philo) * simu->nb_philo);
-	simu->forks = malloc(sizeof(pthread_mutex_t) * simu->nb_philo);
-	if (!simu->philos || !simu->forks)
+	if (!simu->philos)
 	{
 		printf("Error: Memory allocation failed\n");
+		return (0);
+	}
+	simu->forks = malloc(sizeof(pthread_mutex_t) * simu->nb_philo);
+	if (!simu->forks)
+	{
+		printf("Error: Memory allocation failed\n");
+		free(simu->philos);
 		return (0);
 	}
 	return (1);
