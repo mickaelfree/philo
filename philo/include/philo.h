@@ -19,8 +19,6 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-// TODO: fair un status prise pour les fork et laisser le reste exec
-// TODO: fi
 
 enum				e_action
 {
