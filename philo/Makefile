@@ -10,6 +10,7 @@ SRC = $(SRC_DIR)philo.c \
 	$(SRC_DIR)simu.c \
 	$(SRC_DIR)monitoring.c \
 	$(SRC_DIR)utils.c \
+	$(SRC_DIR)routine.c \
 
 OBJ = $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
