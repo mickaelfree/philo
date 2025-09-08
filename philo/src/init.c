@@ -12,6 +12,13 @@
 
 #include "../include/philo.h"
 
+static void	cleanup_forks(t_simu *simu, int count)
+{
+	while (--count >= 0)
+		pthread_mutex_destroy(&simu->forks[count]);
+	free(simu->fork_status);
+}
+
 int	init_philos(t_simu *simu)
 {
 	int	i;
@@ -49,18 +56,14 @@ int	init_mutexes(t_simu *simu)
 		simu->fork_status[i] = 0;
 		if (pthread_mutex_init(&simu->forks[i], NULL) != 0)
 		{
-			while (--i >= 0)
-				pthread_mutex_destroy(&simu->forks[i]);
-			free(simu->fork_status);
+			cleanup_forks(simu, i);
 			return (0);
 		}
 		i++;
 	}
 	if (pthread_mutex_init(&simu->print_mutex, NULL) != 0)
 	{
-		while (--i >= 0)
-			pthread_mutex_destroy(&simu->forks[i]);
-		free(simu->fork_status);
+		cleanup_forks(simu, simu->nb_philo);
 		return (0);
 	}
 	return (1);

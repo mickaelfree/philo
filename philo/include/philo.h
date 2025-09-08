@@ -19,8 +19,8 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-//TODO: fair un status prise pour les fork et laisser le reste exec
-//TODO: fi
+// TODO: fair un status prise pour les fork et laisser le reste exec
+// TODO: fi
 
 enum				e_action
 {
@@ -44,7 +44,7 @@ typedef struct s_philo
 	int				meals_eaten;
 	long			last_meal;
 	pthread_t		thread;
-        pthread_mutex_t	fork_mutex;
+	pthread_mutex_t	fork_mutex;
 	pthread_mutex_t	meal_mutex;
 	struct s_simu	*simu;
 }					t_philo;

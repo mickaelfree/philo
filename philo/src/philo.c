@@ -14,17 +14,17 @@
 
 static int	validate_args(t_simu *simu, int argc)
 {
-	if (simu->nb_philo <= 0 || simu->time_to_die <= 0 || 
-		simu->time_to_eat <= 0 || simu->time_to_sleep <= 0)
-        {
-                printf("Error: Invalid arguments\n");
+	if (simu->nb_philo <= 0 || simu->time_to_die <= 0 || simu->time_to_eat <= 0
+		|| simu->time_to_sleep <= 0)
+	{
+		printf("Error: Invalid arguments\n");
 		return (0);
-        }
+	}
 	if (argc == 6 && simu->nb_eat <= 0)
-        {
-                printf("Error: Invalid arguments\n");
+	{
+		printf("Error: Invalid arguments\n");
 		return (0);
-        }
+	}
 	return (1);
 }
 
