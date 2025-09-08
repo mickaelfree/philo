@@ -40,7 +40,7 @@ static void	take_forks(t_philo *philo, t_simu *simu)
 	print_action(simu, philo->id, TAKING_FORK);
 }
 
-void	philo_eat(t_philo *philo, t_simu *simu)
+static void	philo_eat(t_philo *philo, t_simu *simu)
 {
 	if (simu->nb_philo == 1)
 	{
@@ -60,6 +60,16 @@ void	philo_eat(t_philo *philo, t_simu *simu)
 	pthread_mutex_unlock(&simu->forks[philo->right_fork]);
 }
 
+static int	check_simu_end(t_simu *simu)
+{
+	int	tmp;
+
+	pthread_mutex_lock(&simu->print_mutex);
+	tmp = simu->simulation_end;
+	pthread_mutex_unlock(&simu->print_mutex);
+	return (tmp);
+}
+
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
@@ -69,7 +79,7 @@ void	*philo_routine(void *arg)
 	simu = philo->simu;
 	if (philo->id % 2 == 0)
 		ft_sleep(10);
-	while (!simu->simulation_end)
+	while (!check_simu_end(simu))
 	{
 		philo_eat(philo, simu);
 		print_action(simu, philo->id, SLEEP);

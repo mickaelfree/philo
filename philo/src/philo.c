@@ -60,8 +60,9 @@ static int	initialize_simulation(t_simu *simu)
 		cleanup(simu);
 		return (0);
 	}
-	if (!start_simulation(simu))
+	if (start_simulation(simu))
 	{
+		printf("Error: Failed start simulation\n");
 		cleanup(simu);
 		return (0);
 	}

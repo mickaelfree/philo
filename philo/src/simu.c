@@ -14,6 +14,9 @@
 
 static int	cleanup_threads(t_simu *simu, int count)
 {
+	pthread_mutex_lock(&simu->print_mutex);
+	simu->simulation_end = 1;
+	pthread_mutex_unlock(&simu->print_mutex);
 	while (--count >= 0)
 		pthread_join(simu->philos[count].thread, NULL);
 	return (1);
@@ -23,7 +26,9 @@ static int	cleanup_all_threads(t_simu *simu)
 {
 	int	i;
 
+	pthread_mutex_lock(&simu->print_mutex);
 	simu->simulation_end = 1;
+	pthread_mutex_unlock(&simu->print_mutex);
 	i = 0;
 	while (i < simu->nb_philo)
 	{
