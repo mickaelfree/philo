@@ -57,7 +57,7 @@ static int	initialize_simulation(t_simu *simu)
 	if (!init_philos(simu))
 	{
 		printf("Error: Failed to initialize philosophers\n");
-		cleanup(simu);
+                free(simu->fork_status);
 		return (0);
 	}
 	if (start_simulation(simu))
@@ -74,22 +74,20 @@ void	print_action(t_simu *p, int philo_id, enum e_action action)
 	long	current_time;
 
 	pthread_mutex_lock(&p->print_mutex);
-	if (p->simulation_end)
+	if (!p->simulation_end)
 	{
-		pthread_mutex_unlock(&p->print_mutex);
-		return ;
+		current_time = get_time_ms() - p->start_time;
+		if (action == TAKING_FORK)
+			printf("%ld %d has taken a fork\n", current_time, philo_id);
+		else if (action == EAT)
+			printf("%ld %d is eating\n", current_time, philo_id);
+		else if (action == SLEEP)
+			printf("%ld %d is sleeping\n", current_time, philo_id);
+		else if (action == THINK)
+			printf("%ld %d is thinking\n", current_time, philo_id);
+		else if (action == DIE)
+			printf("%ld %d died\n", current_time, philo_id);
 	}
-	current_time = get_time_ms() - p->start_time;
-	if (action == TAKING_FORK)
-		printf("%ld %d has taken a fork\n", current_time, philo_id);
-	else if (action == EAT)
-		printf("%ld %d is eating\n", current_time, philo_id);
-	else if (action == SLEEP)
-		printf("%ld %d is sleeping\n", current_time, philo_id);
-	else if (action == THINK)
-		printf("%ld %d is thinking\n", current_time, philo_id);
-	else if (action == DIE)
-		printf("%ld %d died\n", current_time, philo_id);
 	pthread_mutex_unlock(&p->print_mutex);
 }
 

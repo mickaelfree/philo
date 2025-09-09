@@ -21,7 +21,13 @@ static int	check_philosopher_death(t_simu *simu, int i)
 	pthread_mutex_unlock(&simu->philos[i].meal_mutex);
 	if (is_dead)
 	{
-		print_action(simu, simu->philos[i].id, DIE);
+		pthread_mutex_lock(&simu->print_mutex);
+		if (!simu->simulation_end)
+		{
+			simu->simulation_end = 1;
+			printf("%ld %d died\n", get_time_ms() - simu->start_time, simu->philos[i].id);
+		}
+		pthread_mutex_unlock(&simu->print_mutex);
 		return (1);
 	}
 	return (0);
@@ -87,7 +93,7 @@ void	*monitor_routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&simu->print_mutex);
-		usleep(500);
+		usleep(100);
 	}
 	return (NULL);
 }
