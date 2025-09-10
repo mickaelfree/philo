@@ -54,9 +54,9 @@ void	philo_eat(t_philo *philo, t_simu *simu)
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_action(simu, philo->id, EAT);
 	ft_sleep(simu->time_to_eat);
-        simu->fork_status[philo->left_fork] = 0;
+	simu->fork_status[philo->left_fork] = 0;
 	pthread_mutex_unlock(&simu->forks[philo->left_fork]);
-        simu->fork_status[philo->right_fork] = 0;
+	simu->fork_status[philo->right_fork] = 0;
 	pthread_mutex_unlock(&simu->forks[philo->right_fork]);
 }
 

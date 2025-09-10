@@ -57,7 +57,7 @@ static int	initialize_simulation(t_simu *simu)
 	if (!init_philos(simu))
 	{
 		printf("Error: Failed to initialize philosophers\n");
-                free(simu->fork_status);
+		free(simu->fork_status);
 		return (0);
 	}
 	if (start_simulation(simu))

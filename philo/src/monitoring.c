@@ -25,7 +25,8 @@ static int	check_philosopher_death(t_simu *simu, int i)
 		if (!simu->simulation_end)
 		{
 			simu->simulation_end = 1;
-			printf("%ld %d died\n", get_time_ms() - simu->start_time, simu->philos[i].id);
+			printf("%ld %d died\n", get_time_ms() - simu->start_time,
+				simu->philos[i].id);
 		}
 		pthread_mutex_unlock(&simu->print_mutex);
 		return (1);
