@@ -63,13 +63,14 @@ typedef struct s_simu
 }					t_simu;
 
 long				get_time_ms(void);
-void				ft_sleep(long wait_time);
+void				ft_sleep(t_simu *simu, long wait_time);
 void				cleanup(t_simu *simu);
 void				parse(t_simu *simu, char **argv);
 void				*philo_routine(void *arg);
 
 int					init_mutexes(t_simu *simu);
 int					init_philos(t_simu *simu);
+int					check_simu_end(t_simu *simu);
 
 void				*monitor_routine(void *arg);
 

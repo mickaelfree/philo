@@ -16,7 +16,7 @@ static void	handle_single_philo(t_philo *philo, t_simu *simu)
 {
 	pthread_mutex_lock(&simu->forks[philo->left_fork]);
 	print_action(simu, philo->id, TAKING_FORK);
-	ft_sleep(simu->time_to_die + 1);
+	ft_sleep(simu, simu->time_to_die + 1);
 	pthread_mutex_unlock(&simu->forks[philo->left_fork]);
 }
 
@@ -53,7 +53,7 @@ void	philo_eat(t_philo *philo, t_simu *simu)
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_action(simu, philo->id, EAT);
-	ft_sleep(simu->time_to_eat);
+	ft_sleep(simu, simu->time_to_eat);
 	simu->fork_status[philo->left_fork] = 0;
 	pthread_mutex_unlock(&simu->forks[philo->left_fork]);
 	simu->fork_status[philo->right_fork] = 0;
@@ -78,12 +78,12 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	simu = philo->simu;
 	if (philo->id % 2 == 0)
-		ft_sleep(10);
+		ft_sleep(simu, 10);
 	while (!check_simu_end(simu))
 	{
 		philo_eat(philo, simu);
 		print_action(simu, philo->id, SLEEP);
-		ft_sleep(simu->time_to_sleep);
+		ft_sleep(simu, simu->time_to_sleep);
 		print_action(simu, philo->id, THINK);
 	}
 	return (NULL);

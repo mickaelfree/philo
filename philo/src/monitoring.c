@@ -82,7 +82,7 @@ void	*monitor_routine(void *arg)
 		while (i < simu->nb_philo)
 		{
 			if (check_philosopher_death(simu, i))
-				return (end_simulation(simu));
+				return (NULL);
 			i++;
 		}
 		if (check_all_philosophers_eaten_enough(simu))

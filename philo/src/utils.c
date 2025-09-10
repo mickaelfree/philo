@@ -20,12 +20,12 @@ long	get_time_ms(void)
 	return ((t.timer.tv_sec * 1000) + (t.timer.tv_usec / 1000));
 }
 
-void	ft_sleep(long wait_time)
+void	ft_sleep(t_simu *simu, long wait_time)
 {
 	long	start;
 
 	start = get_time_ms();
-	while (get_time_ms() - start < wait_time)
+	while (get_time_ms() - start < wait_time && !check_simu_end(simu))
 		usleep(100);
 }
 
